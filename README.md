@@ -88,10 +88,9 @@ Japanese adjectives are categorized into two main classes:
 The system supports these conjugation forms for adjectives:
 
 - 基本形 (Basic form)
-- ます形 (Polite form)
+- 丁寧形 (Polite form)
 - 過去形 (Past form)
 - 否定形 (Negative form)
-- て形 (Te form)
 
 ```typescript
 type いい = IAdjective & { stem: "い"; ending: "い"; irregular: true };

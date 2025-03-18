@@ -18,8 +18,7 @@ export type AdjectiveConjugationForm =
   | "基本形" // Basic form
   | "丁寧形" // Polite form
   | "過去形" // Past form
-  | "否定形" // Negative form
-  | "て形"; // Te form
+  | "否定形"; // Negative form
 
 // I-adjective conjugation mapping
 type IAdjectiveConjugationMap = {
@@ -28,7 +27,6 @@ type IAdjectiveConjugationMap = {
     丁寧形: "いです";
     過去形: "かった";
     否定形: "くない";
-    て形: "くて";
   };
 };
 
