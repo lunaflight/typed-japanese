@@ -221,7 +221,7 @@ type GetIrregularConjugation<
   : never;
 
 // Main conjugation type
-export type Conjugate<
+export type ConjugateVerb<
   V extends Verb,
   F extends ConjugationForm
 > = V extends GodanVerb
@@ -256,6 +256,6 @@ type 食べる = IchidanVerb & { stem: "食べ"; ending: "る" };
 type する = IrregularVerb & { dictionary: "する" };
 
 // Type-level conjugation tests
-type 話すます形 = Conjugate<話す, "ます形">; // Evaluates to "話し"
-type 食べるて形 = Conjugate<食べる, "て形">; // Evaluates to "食べて"
-type する命令形 = Conjugate<する, "命令形">; // Evaluates to "しろ"
+type 話すます形 = ConjugateVerb<話す, "ます形">; // Evaluates to "話し"
+type 食べるて形 = ConjugateVerb<食べる, "て形">; // Evaluates to "食べて"
+type する命令形 = ConjugateVerb<する, "命令形">; // Evaluates to "しろ"
