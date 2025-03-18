@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  typecheck:
+  verify:
     runs-on: ubuntu-latest
     
     steps:
@@ -28,4 +28,7 @@ jobs:
       run: pnpm install
     
     - name: Run type checking
-      run: pnpm run typecheck 
+      run: pnpm run typecheck
+      
+    - name: Run linting
+      run: pnpm run lint 

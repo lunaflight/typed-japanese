@@ -1,4 +1,4 @@
-import {
+import type {
   Adjective,
   AdjectiveConjugationForm,
   ConjugateAdjective,
@@ -6,10 +6,10 @@ import {
   NaAdjective,
 } from "./adjective-types";
 import type {
-  Verb,
-  ConjugationForm,
   ConjugateVerb,
+  ConjugationForm,
   IrregularVerb,
+  Verb,
 } from "./verb-types";
 
 // Particle system

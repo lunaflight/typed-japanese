@@ -1,8 +1,8 @@
 import type {
+  ConjugateVerb,
   GodanVerb,
   IchidanVerb,
   IrregularVerb,
-  ConjugateVerb,
 } from "../verb-types";
 
 // Example Godan verbs (五段動詞)
