@@ -9,15 +9,16 @@ Typed Japanese is a TypeScript type-level library that enables the expression of
 This project also explores an intermediate format for AI in language learning. For example, LLMs could return grammar analysis of Japanese sentences using this format instead of JSON, enabling verification through TypeScript's type checker to improve correctness.
 
 ```typescript
-// Irregular verb "kuru" (to come)
-type 来る = IrregularVerb & { dictionary: "来る" };
 // I-adjective "ii" (good) with irregular conjugation
+// Then add particle "yo" to basic form of "ii" -> "ii yo"
 type いい = IAdjective & { stem: "い"; ending: "い"; irregular: true };
-
-// Add particle "yo" to basic form of "ii" -> "ii yo"
 type いいよ = PhraseWithParticle<ConjugateAdjective<いい, "基本形">, "よ">;
-// Add particle "yo" to imperative form of "kuru" -> "koi yo"
+
+// Irregular verb "kuru" (to come)
+// Then add particle "yo" to imperative form of "kuru" -> "koi yo"
+type 来る = IrregularVerb & { dictionary: "来る" };
 type 来いよ = PhraseWithParticle<ConjugateVerb<来る, "命令形">, "よ">;
+
 // Connect both phrases -> "ii yo, koi yo"
 type いいよ来いよ = ConnectedPhrases<いいよ, 来いよ>;
 
@@ -150,6 +151,8 @@ Key components:
 - This is a type-level system only - it doesn't provide runtime functionality
 - The system handles standard forms but doesn't account for linguistic nuances
 - Some rare or archaic language patterns may not be accurately represented
+
+This project is still in very early stages and heavily relies on LLM-generated grammar rules, which may occasionally contain hallucinations or inaccuracies. If you find any issue during actual use, please help by confirming and providing feedback.
 
 ## 🛠️ Development
 

@@ -31,7 +31,10 @@ const wrongExample3: ヒンメルならそうした = "ヒンメルならこう�
 type TestConditional = ヒンメルならそうした extends `${string}なら${string}`
   ? true
   : false; // Should be true
+const resultTestConditional: TestConditional = true;
+
 type TestDemonstrative = そうした extends `そう${string}` ? true : false; // Should be true
+const resultTestDemonstrative: TestDemonstrative = true;
 
 // Output for confirmation
 console.log("Example phrase: ヒンメルならそうした");

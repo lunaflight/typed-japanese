@@ -13,7 +13,7 @@ import type {
   IrregularVerb,
   Verb,
 } from "./verb-types";
-import type { InterrogativeAdverb } from "./adverb-types";
+import type { InterrogativeAdverb, WhyInterrogative } from "./adverb-types";
 import type { ProperNoun } from "./noun-types";
 
 // Particle system
@@ -31,7 +31,20 @@ export type Particle =
   | "ね" // Agreement seeking particle
   | "か" // Question particle
   | "よね" // Combined emphasis and agreement
-  | "の"; // Nominalizer/question particle
+  | "の" // Nominalizer/question particle
+  | "だ" // Copula as particle
+  | "も"; // Also/even particle
+
+// Punctuation marks
+export type PunctuationMark =
+  | "、" // Japanese comma (読点/とうてん)
+  | "。" // Japanese period (句点/くてん)
+  | "！" // Exclamation mark
+  | "？" // Question mark
+  | "「" // Opening quotation mark
+  | "」" // Closing quotation mark
+  | "『" // Opening double quotation mark
+  | "』"; // Closing double quotation mark
 
 // Conditional particles
 export type ConditionalParticle = "なら" | "たら" | "れば" | "と";
@@ -84,15 +97,122 @@ export type InterrogativePhrase<
   QP extends Particle = "か"
 > = `${Adv}${Subject}${ConjugateVerb<V, VForm>}${QP}`;
 
-// Previous examples
-// Example adjectives
-type いい = IAdjective & { stem: "い"; ending: "い"; irregular: true };
-type 綺麗 = NaAdjective & { stem: "綺麗" };
+// Basic building blocks for phrase parts
+export type PhrasePart =
+  | VerbPart
+  | AdjectivePart
+  | NounPart
+  | AdverbPart
+  | ParticlePart
+  | IntensifierPart
+  | ContractedPart
+  | NestedPhrasePart
+  | PunctuationPart;
+
+// Part type definitions
+export type VerbPart<
+  V extends Verb = Verb,
+  F extends ConjugationForm = ConjugationForm
+> = {
+  type: "verb";
+  verb: V;
+  form: F;
+  value: ConjugateVerb<V, F>;
+};
+
+export type AdjectivePart<
+  A extends Adjective = Adjective,
+  F extends AdjectiveConjugationForm = AdjectiveConjugationForm
+> = {
+  type: "adjective";
+  adjective: A;
+  form: F;
+  value: ConjugateAdjective<A, F>;
+};
+
+export type NounPart<N extends string = string> = {
+  type: "noun";
+  noun: N;
+  value: N;
+};
+
+export type AdverbPart<A extends string = string> = {
+  type: "adverb";
+  adverb: A;
+  value: A;
+};
+
+export type ParticlePart<P extends Particle = Particle> = {
+  type: "particle";
+  particle: P;
+  value: P;
+};
+
+export type IntensifierPart<I extends string = string> = {
+  type: "intensifier";
+  intensifier: I;
+  value: I;
+};
+
+export type ContractedPart<
+  Original extends string = string,
+  Contracted extends string = string
+> = {
+  type: "contracted";
+  original: Original;
+  value: Contracted;
+};
+
+export type NestedPhrasePart<V extends string = string> = {
+  type: "nestedPhrase";
+  value: V;
+};
+
+export type PunctuationPart<P extends PunctuationMark = PunctuationMark> = {
+  type: "punctuation";
+  punctuation: P;
+  value: P;
+};
+
+type PhraseSequence<Parts extends PhrasePart[] = PhrasePart[]> = {
+  parts: Parts;
+  value: JoinPhrasePartsValue<Parts>;
+};
+
+export type NestedPhrase<T extends PhraseSequence<any>> = {
+  type: "nestedPhrase";
+  value: T["value"];
+};
+
+// Type helpers for joining phrase parts
+type JoinPhrasePartsValue<Parts extends readonly PhrasePart[]> =
+  Parts extends readonly [
+    infer First extends PhrasePart,
+    ...infer Rest extends PhrasePart[]
+  ]
+    ? `${First["value"]}${JoinPhrasePartsValue<Rest>}`
+    : "";
+
+// Define the pattern type for why-intensifier with emphasis particle
+export type WhyIntensifierPatternWithEmphasis<
+  Why extends WhyInterrogative,
+  Intensifier extends string,
+  V extends Verb,
+  P extends Extract<Particle, "よ" | "ね">
+> = PhraseSequence<
+  [
+    AdverbPart<Why>,
+    IntensifierPart<Intensifier>,
+    VerbPart<V, "て形">,
+    ContractedPart<"ん">,
+    ParticlePart<"だ">,
+    ParticlePart<P>
+  ]
+>;
 
 // Examples for the target phrase "いいよ、来いよ"
+type いい = IAdjective & { stem: "い"; ending: "い"; irregular: true };
 type いいよ = PhraseWithParticle<ConjugateAdjective<いい, "基本形">, "よ">;
-type 来いよ = PhraseWithParticle<
-  ConjugateVerb<IrregularVerb & { dictionary: "来る" }, "命令形">,
-  "よ"
->;
+type 来る = IrregularVerb & { dictionary: "来る" };
+type 来いよ = PhraseWithParticle<ConjugateVerb<来る, "命令形">, "よ">;
 type いいよ来いよ = ConnectedPhrases<いいよ, 来いよ>;
