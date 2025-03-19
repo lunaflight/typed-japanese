@@ -8,9 +8,12 @@ import type {
 import type {
   ConjugateVerb,
   ConjugationForm,
+  GodanVerb,
   IrregularVerb,
   Verb,
 } from "./verb-types";
+import type { InterrogativeAdverb } from "./adverb-types";
+import type { ProperNoun } from "./noun-types";
 
 // Particle system
 export type Particle =
@@ -26,7 +29,8 @@ export type Particle =
   | "よ" // Emphasis particle
   | "ね" // Agreement seeking particle
   | "か" // Question particle
-  | "よね"; // Combined emphasis and agreement
+  | "よね" // Combined emphasis and agreement
+  | "の"; // Nominalizer/question particle
 
 // Phrase composition types
 export type NounPhrase<Noun extends string> = `${Noun}`;
@@ -53,6 +57,16 @@ export type ConnectedPhrases<
   P2 extends string
 > = `${P1}、${P2}`;
 
+// Interrogative phrase type
+export type InterrogativePhrase<
+  Adv extends InterrogativeAdverb,
+  Subject extends string,
+  V extends Verb,
+  VForm extends ConjugationForm,
+  QP extends Particle = "か"
+> = `${Adv}${Subject}${ConjugateVerb<V, VForm>}${QP}`;
+
+// Previous examples
 // Example adjectives
 type いい = IAdjective & { stem: "い"; ending: "い"; irregular: true };
 type 綺麗 = NaAdjective & { stem: "綺麗" };

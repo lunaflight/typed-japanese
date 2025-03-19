@@ -1,6 +1,22 @@
 import type { ConjugateAdjective, IAdjective } from "../adjective-types";
-import type { ConnectedPhrases, PhraseWithParticle } from "../phrase-types";
-import type { ConjugateVerb, IrregularVerb } from "../verb-types";
+import type { InterrogativeAdverb, WhyInterrogative } from "../adverb-types";
+import type { ProperNoun } from "../noun-types";
+import type {
+  ConnectedPhrases,
+  InterrogativePhrase,
+  PhraseWithParticle,
+} from "../phrase-types";
+import type { ConjugateVerb, GodanVerb, IrregularVerb } from "../verb-types";
+
+type やる = GodanVerb & { stem: "や"; ending: "る" };
+type 春日影 = ProperNoun<"春日影">;
+type なんで春日影やったの = InterrogativePhrase<
+  WhyInterrogative,
+  春日影,
+  やる,
+  "た形",
+  "の"
+>;
 
 type 来る = IrregularVerb & { dictionary: "来る" };
 type いい = IAdjective & { stem: "い"; ending: "い"; irregular: true };

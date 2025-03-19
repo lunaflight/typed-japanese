@@ -9,6 +9,7 @@
     "typecheck": "tsc --noEmit",
     "build": "tsc",
     "lint": "eslint . --ext .ts,.tsx",
+    "check": "pnpm typecheck && pnpm lint",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

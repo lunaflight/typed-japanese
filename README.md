@@ -2,7 +2,9 @@
 
 **If you can write TypeScript, you can write Japanese!**
 
-Typed Japanese is a TypeScript type-level system that enables the expression of complete Japanese sentences through the type system. It creates a domain-specific language (DSL) based on Japanese grammar rules, allowing a subset of grammatically correct natural language to be written and verified using TypeScript's compiler.
+![demo](./images/demo.png)
+
+Typed Japanese is a TypeScript type-level library that enables the expression of complete Japanese sentences through the type system. It creates a domain-specific language (DSL) based on Japanese grammar rules, allowing a subset of grammatically correct natural language to be written and verified using TypeScript's compiler.
 
 This project also explores an intermediate format for AI in language learning. For example, LLMs could return grammar analysis of Japanese sentences using this format instead of JSON, enabling verification through TypeScript's type checker to improve correctness.
 
