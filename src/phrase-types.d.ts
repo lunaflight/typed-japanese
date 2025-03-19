@@ -9,6 +9,7 @@ import type {
   ConjugateVerb,
   ConjugationForm,
   GodanVerb,
+  IchidanVerb,
   IrregularVerb,
   Verb,
 } from "./verb-types";
@@ -32,6 +33,9 @@ export type Particle =
   | "よね" // Combined emphasis and agreement
   | "の"; // Nominalizer/question particle
 
+// Conditional particles
+export type ConditionalParticle = "なら" | "たら" | "れば" | "と";
+
 // Phrase composition types
 export type NounPhrase<Noun extends string> = `${Noun}`;
 
@@ -50,6 +54,20 @@ export type PhraseWithParticle<
   Phrase extends string,
   P extends Particle
 > = `${Phrase}${P}`;
+
+// Demonstrative + action pattern (そうする, etc.)
+export type DemonstrativeAction<
+  Demo extends string,
+  V extends Verb,
+  F extends ConjugationForm = "辞書形"
+> = `${Demo}${ConjugateVerb<V, F>}`;
+
+// Conditional phrase with なら
+export type ConditionalPhrase<
+  Subject extends string,
+  CP extends ConditionalParticle,
+  Result extends string
+> = `${Subject}${CP}${Result}`;
 
 // Connect phrases with Japanese comma
 export type ConnectedPhrases<

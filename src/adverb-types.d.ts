@@ -8,6 +8,13 @@ export type HowInterrogative = "どう" | "どうして";
 export type WhatKindInterrogative = "どんな";
 export type WhichInterrogative = "どれ";
 
+// Demonstratives
+export type Demonstrative = 
+  | "こう" // This way
+  | "そう" // That way
+  | "ああ" // That way (far)
+  | "どう"; // Which way
+
 // Combined interrogative adverb type
 export type InterrogativeAdverb =
   | WhyInterrogative
