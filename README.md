@@ -1,6 +1,6 @@
-# Typed Japanese
+# 🌸 Typed Japanese
 
-**If you can write TypeScript, you can write Japanese!**
+**If you can write TypeScript, you can write and understand Japanese!**
 
 ![demo](./images/demo.png)
 
@@ -27,7 +27,7 @@ const correctPhrase2: 来いよ = "来いよ"; // "Come here!"
 const correctFullPhrase: いいよ来いよ = "いいよ、来いよ"; // "It's good, come here!"
 ```
 
-## Verb System
+## 🤖 Verb System
 
 ### Verb Classes
 
@@ -74,7 +74,7 @@ type 食べるて形 = ConjugateVerb<食べる, "て形">; // 食べて
 type 食べるた形 = ConjugateVerb<食べる, "た形">; // 食べた
 ```
 
-## Adjective System
+## 🎨 Adjective System
 
 Japanese adjectives are categorized into two main classes:
 
@@ -99,15 +99,35 @@ type いい = IAdjective & { stem: "い"; ending: "い"; irregular: true };
 type 綺麗 = NaAdjective & { stem: "綺麗" };
 ```
 
-## Phrase and Sentence Composition
+## 📚 Phrase and Sentence Composition
 
 The system now supports:
 
 - Adjectives and verbs with particles
 - Connecting phrases with Japanese punctuation
 - Basic sentence structures
+- Conditional expressions with particles like なら
+- Demonstrative forms with actions
 
-## Technical Implementation
+```typescript
+// Example of a conditional phrase using a proper noun and demonstrative action
+// Define the proper noun "ヒンメル"
+type ヒンメル = ProperNoun<"ヒンメル">;
+
+// Define する verb
+type する = IrregularVerb & { dictionary: "する" };
+
+// Create the そうした pattern (past form of そうする)
+type そうした = DemonstrativeAction<Demonstrative & "そう", する, "た形">;
+
+// Create the conditional phrase "ヒンメルならそうした"
+type ヒンメルならそうした = ConditionalPhrase<ヒンメル, "なら", そうした>;
+
+// Type checking examples
+const properExample: ヒンメルならそうした = "ヒンメルならそうした"; // "If it were Himmel, I would do so"
+```
+
+## ⚙️ Technical Implementation
 
 The system uses TypeScript's template literal types, conditional types, and mapped types to create a purely type-level representation of Japanese grammatical rules.
 
@@ -118,15 +138,38 @@ Key components:
 - String literal manipulation for form generation
 - Type inference for grammatical validation
 
-## Why Typed Japanese?
+## 💡 Why Typed Japanese?
 
 - **Educational tool** - Learn Japanese grammar through code
 - **AI-assisted learning** - Provide structured formats for language analysis
 - **Grammar verification** - Express and verify Japanese grammar in code
 - **Integration potential** - Basis for typed Japanese language tools
 
-## Limitations
+## ⚠️ Limitations
 
 - This is a type-level system only - it doesn't provide runtime functionality
 - The system handles standard forms but doesn't account for linguistic nuances
 - Some rare or archaic language patterns may not be accurately represented
+
+## 🛠️ Development
+
+If you're interested in contributing to or experimenting with Typed Japanese:
+
+1. Ensure you have [Node.js](https://nodejs.org/) and [pnpm](https://pnpm.io/) installed
+2. Clone the repository
+3. Install dependencies: `pnpm install`
+4. Run the tests: `pnpm test`
+
+The tests validate that the type system functions correctly and all grammatical rules are properly implemented.
+
+We welcome contributions! Feel free to open issues for bugs or feature requests, or submit pull requests with improvements.
+
+## 📬 Contact
+
+For sponsorship opportunities, research collaborations, or commercial inquiries, please reach out to `doodlewind [at] gmail [dot] com` or [@ewind_dev](https://x.com/ewind_dev).
+
+## 📄 License
+
+[MIT](https://opensource.org/licenses/MIT)
+
+Copyright (c) 2025-present, Yifeng Wang
