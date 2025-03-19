@@ -110,8 +110,9 @@ The system now supports:
 - Conditional expressions with particles like なら
 - Demonstrative forms with actions
 
+Example: Conditional phrase using a proper noun and demonstrative action
+
 ```typescript
-// Example of a conditional phrase using a proper noun and demonstrative action
 // Define the proper noun "ヒンメル"
 type ヒンメル = ProperNoun<"ヒンメル">;
 
@@ -125,7 +126,26 @@ type そうした = DemonstrativeAction<Demonstrative & "そう", する, "た�
 type ヒンメルならそうした = ConditionalPhrase<ヒンメル, "なら", そうした>;
 
 // Type checking examples
-const properExample: ヒンメルならそうした = "ヒンメルならそうした"; // "If it were Himmel, I would do so"
+const properExample: ヒンメルならそうした = "ヒンメルならそうした"; // "If it were Himmel, he would do so"
+// 如果是辛美尔的话，他也会这么做的
+```
+
+Example: More flexible component-based sentence construction
+
+```typescript
+type SentenceParts = [
+  AdverbPart<"なんで">, // "Why" - question adverb
+  IntensifierPart<"そんなに">, // "So much" - intensifier
+  VerbPart<慣れる, "て形">, // "Get used to" in te-form
+  ContractedPart<"ん">, // Contraction of "の" - colloquial nominalizer
+  ParticlePart<"だ">, // Copula "is"
+  ParticlePart<"よ"> // Emphatic sentence-ending particle
+];
+
+// Combines all parts into a single string
+type JoinedSentence = JoinPhrasePartsValue<SentenceParts>;
+const joinedSentence: JoinedSentence = "なんでそんなに慣れてんだよ"; // "Why are you so used to it?!"
+// 你为什么这么熟练啊？
 ```
 
 ## ⚙️ Technical Implementation
