@@ -9,23 +9,21 @@ Typed Japanese is a TypeScript type-level library that enables the expression of
 This project also explores an intermediate format for AI in language learning. For example, LLMs could return grammar analysis of Japanese sentences using this format instead of JSON, enabling verification through TypeScript's type checker to improve correctness.
 
 ```typescript
-// I-adjective "ii" (good) with irregular conjugation
-// Then add particle "yo" to basic form of "ii" -> "ii yo"
-type いい = IAdjective & { stem: "い"; ending: "い"; irregular: true };
-type いいよ = PhraseWithParticle<ConjugateAdjective<いい, "基本形">, "よ">;
+// Define the proper noun "ヒンメル"
+type ヒンメル = ProperNoun<"ヒンメル">;
 
-// Irregular verb "kuru" (to come)
-// Then add particle "yo" to imperative form of "kuru" -> "koi yo"
-type 来る = IrregularVerb & { dictionary: "来る" };
-type 来いよ = PhraseWithParticle<ConjugateVerb<来る, "命令形">, "よ">;
+// Define する verb
+type する = IrregularVerb & { dictionary: "する" };
 
-// Connect both phrases -> "ii yo, koi yo"
-type いいよ来いよ = ConnectedPhrases<いいよ, 来いよ>;
+// Create the そうした pattern (past form of そうする)
+type そうした = DemonstrativeAction<Demonstrative & "そう", する, "た形">;
+
+// Create the conditional phrase "ヒンメルならそうした"
+type ヒンメルならそうした = ConditionalPhrase<ヒンメル, "なら", そうした>;
 
 // Type checking examples
-const correctPhrase1: いいよ = "いいよ"; // "It's good!"
-const correctPhrase2: 来いよ = "来いよ"; // "Come here!"
-const correctFullPhrase: いいよ来いよ = "いいよ、来いよ"; // "It's good, come here!"
+const properExample: ヒンメルならそうした = "ヒンメルならそうした"; // "If it were Himmel, he would do so"
+// 如果是辛美尔的话，他也会这么做的
 ```
 
 ## 🤖 Verb System
@@ -110,24 +108,26 @@ The system now supports:
 - Conditional expressions with particles like なら
 - Demonstrative forms with actions
 
-Example: Conditional phrase using a proper noun and demonstrative action
+Example: Connecting simple adjective and imperative verb phrases
 
 ```typescript
-// Define the proper noun "ヒンメル"
-type ヒンメル = ProperNoun<"ヒンメル">;
+// I-adjective "ii" (good) with irregular conjugation
+// Then add particle "yo" to basic form of "ii" -> "ii yo"
+type いい = IAdjective & { stem: "い"; ending: "い"; irregular: true };
+type いいよ = PhraseWithParticle<ConjugateAdjective<いい, "基本形">, "よ">;
 
-// Define する verb
-type する = IrregularVerb & { dictionary: "する" };
+// Irregular verb "kuru" (to come)
+// Then add particle "yo" to imperative form of "kuru" -> "koi yo"
+type 来る = IrregularVerb & { dictionary: "来る" };
+type 来いよ = PhraseWithParticle<ConjugateVerb<来る, "命令形">, "よ">;
 
-// Create the そうした pattern (past form of そうする)
-type そうした = DemonstrativeAction<Demonstrative & "そう", する, "た形">;
-
-// Create the conditional phrase "ヒンメルならそうした"
-type ヒンメルならそうした = ConditionalPhrase<ヒンメル, "なら", そうした>;
+// Connect both phrases -> "ii yo, koi yo"
+type いいよ来いよ = ConnectedPhrases<いいよ, 来いよ>;
 
 // Type checking examples
-const properExample: ヒンメルならそうした = "ヒンメルならそうした"; // "If it were Himmel, he would do so"
-// 如果是辛美尔的话，他也会这么做的
+const correctPhrase1: いいよ = "いいよ"; // "It's good!" (114)
+const correctPhrase2: 来いよ = "来いよ"; // "Come here!" (514)
+const correctFullPhrase: いいよ来いよ = "いいよ、来いよ"; // "It's good, come here!"
 ```
 
 Example: More flexible component-based sentence construction
@@ -189,9 +189,9 @@ We welcome contributions! Feel free to open issues for bugs or feature requests,
 
 ## 📬 Contact
 
-For sponsorship opportunities, research collaborations, or commercial inquiries, please reach out to `doodlewind [at] gmail [dot] com` or [@ewind_dev](https://x.com/ewind_dev).
+For sponsorship opportunities, research collaborations, or commercial inquiries, please reach out to `contact@typedgrammar.com`.
 
-## 📄 License
+## ⚖️ License
 
 [MIT](https://opensource.org/licenses/MIT)
 
