@@ -1,4 +1,4 @@
-# Learning Japanese Grammar Through TypeScript Type System
+# Expressing Japanese Grammar Through TypeScript Type System
 
 Despite one being used for human communication and the other for machine instructions, natural languages and programming languages share similar fundamental principles. Both are defined by grammatical rules, structural constraints, and methods of combination.
 
