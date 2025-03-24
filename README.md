@@ -2,6 +2,8 @@
 
 **If you can write TypeScript, you can understand Japanese!**
 
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/typedgrammar/typed-japanese)
+
 ![demo](./images/demo.png)
 
 Typed Japanese is a TypeScript type-level library that enables the expression of complete Japanese sentences through the type system. It creates a domain-specific language (DSL) based on Japanese grammar rules, allowing a subset of grammatically correct natural language to be written and verified using TypeScript's compiler.
