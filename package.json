@@ -1,5 +1,5 @@
 {
-  "name": "typed-japanese",
+  "name": "@typedgrammar/typed-japanese",
   "version": "0.1.0",
   "description": "TypeScript types for Japanese grammar",
   "type": "module",
